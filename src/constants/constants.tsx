@@ -20,3 +20,5 @@ export const lightColors = [
     'rgba(255,255,255,0.1)',  // Very transparent
     'rgba(255,255,255,0)',    // Fully transparent
   ];
+
+  export let isLoggedIn = false

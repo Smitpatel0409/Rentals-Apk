@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import CustomText from '../../components/common/CustomText'
+import { FONTS } from '../../constants/fonts'
 
 const ContractsScreen = () => {
   return (
     <View>
-      <Text>ContractsScreen</Text>
+      <CustomText variant='h2' fontFamily={FONTS.SEMI_BOLD}>ContractsScreen</CustomText>
     </View>
   )
 }

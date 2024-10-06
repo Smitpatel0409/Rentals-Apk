@@ -20,10 +20,11 @@ const StackNavigator = () => {
   return (
     <GestureHandlerRootView>
       <NavigationContainer>
-        {/* <MainStack /> */}
+
         <SafeAreaView style={{flex: 1}}>
           <StatusBar barStyle={'dark-content'} backgroundColor="white" />
           <AuthStack />
+          {/* <MainStack /> */}
         </SafeAreaView>
       </NavigationContainer>
     </GestureHandlerRootView>

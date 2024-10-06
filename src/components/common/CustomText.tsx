@@ -92,5 +92,6 @@ export default CustomText;
 const styles = StyleSheet.create({
   text: {
     textAlign: 'left',
+    // paddingHorizontal:1,
   },
 });

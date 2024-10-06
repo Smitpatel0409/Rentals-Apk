@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import CustomText from '../../components/common/CustomText'
+import { FONTS } from '../../constants/fonts'
 
 const RegisterScreen = () => {
   return (
     <View>
-      <Text>RegisterScreen</Text>
+      <CustomText variant='h1' fontFamily={FONTS.BOLD}>RegisterScreen</CustomText>
     </View>
   )
 }

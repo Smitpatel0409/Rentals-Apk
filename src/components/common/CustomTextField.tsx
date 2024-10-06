@@ -20,7 +20,7 @@ const CustomTextField: React.FC<
       <TextInput
         {...props}
         style={styles.inputContainer}
-        placeholderTextColor="#ccc"
+        placeholderTextColor="#cccccc"
       />
       <View style={styles.clearIcon}>
         {props.value?.length != 0 && right && (
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   clearIcon: {
-    width: '5%',
-    justifyContent: 'center',
+    width: '8%',
+    justifyContent: "center",
     alignItems: 'center',
     marginRight: 10,
   },

@@ -26,7 +26,7 @@ import CustomTextField from '../../components/common/CustomTextField';
 import CustomButton from '../../components/common/CustomButton';
 import {LIGHT_COLORS} from '../../constants/colors';
 import Icon from 'react-native-vector-icons/Feather';
-import { NavigationProp } from '@react-navigation/native';
+import {NavigationProp} from '@react-navigation/native';
 
 const gradientColors = [...lightColors].reverse();
 
@@ -36,12 +36,18 @@ type AuthStackParamList = {
   Register: undefined;
 };
 
-const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParamList> }) => {
+const LoginScreen = ({
+  navigation,
+}: {
+  navigation: NavigationProp<AuthStackParamList>;
+}) => {
   console.log(Dimensions.get('window').height);
   const [mobileNumber, setMobileNumber] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    
+  };
 
   return (
     // <KeyboardAvoidingView
@@ -106,8 +112,15 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
             loading={loading}
           />
           <View style={styles.signupContainer}>
-            <CustomText color="#ccc">Don't have an account?</CustomText>
-            <Pressable onPress={() => {navigation.navigate("Register")}}>
+            <CustomText
+              color="#ccc"
+            >
+              Don't have an account?
+            </CustomText>
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Register');
+              }}>
               <CustomText
                 color={LIGHT_COLORS.PRIMARY}
                 fontFamily={FONTS.SEMI_BOLD}>
