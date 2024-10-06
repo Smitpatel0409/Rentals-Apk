@@ -149,55 +149,56 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-    spacer: {
-        marginTop: hp('46%'),
-        backgroundColor: 'transparent'
-    },
-    container: {
-        paddingTop: 8,
-        paddingHorizontal: 16,
-        backgroundColor: 'transparent'
-    },
-    gradient: {
-        paddingTop: wp('12.4%'),
-        width: '100%'
-    },
-    signupContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        gap: 10,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    separator: {
-        flex: 1,
-        flexDirection: 'row',
-        marginTop: 6,
-        gap: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    divider: {
-        backgroundColor: '#ccc',
-        height: 1,
-        flexGrow: 1
-    },
-    socialsContainer: {
-        flex: 1,
-        paddingHorizontal: wp('30%'),
-        marginVertical: 5,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    socialsBtn: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: hp('5.5%'),
-        width: hp('5.5%'),
-        borderRadius: 50,
-        borderColor: '#999999',
-        borderWidth: 0.5,
-        overflow: 'hidden'
-    }
+  spacer: {
+    marginTop: hp('46%'),
+    backgroundColor: 'transparent',
+  },
+  container: {
+    paddingTop: 4,
+    paddingHorizontal: 16,
+    backgroundColor: '#ffffff',
+
+  },
+  gradient: {
+    height:hp('6%'),
+    width: '100%',
+  },
+  signupContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  separator: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 6,
+    gap: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  divider: {
+    backgroundColor: '#ccc',
+    height: 1,
+    flexGrow: 1,
+  },
+  socialsContainer: {
+    flex: 1,
+    paddingHorizontal: wp('30%'),
+    marginVertical: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  socialsBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: hp('5.5%'),
+    width: hp('5.5%'),
+    borderRadius: 50,
+    borderColor: '#999999',
+    borderWidth: 0.5,
+    overflow: 'hidden',
+  },
 });
