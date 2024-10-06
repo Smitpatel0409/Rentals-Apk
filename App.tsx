@@ -9,9 +9,15 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import StackNavigator from './src/screens/navigation/StackNavigator';
+import { Provider } from 'react-redux';
+import { rtkStore } from './src/store/rtkStore';
 
 function App(): React.JSX.Element {
-    return <StackNavigator />;
+    return (
+        <Provider store={rtkStore}>
+            <StackNavigator />
+        </Provider>
+    );
 }
 
 const styles = StyleSheet.create({});
