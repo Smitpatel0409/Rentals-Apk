@@ -9,8 +9,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import StackNavigator from './src/screens/navigation/StackNavigator';
-import { Provider } from 'react-redux';
 import { rtkStore } from './src/store/rtkStore';
+import { Provider } from 'react-redux';
 
 function App(): React.JSX.Element {
     return (
