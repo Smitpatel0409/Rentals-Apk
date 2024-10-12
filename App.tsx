@@ -15,13 +15,20 @@ import AuthStack from './src/screens/navigation/AuthStack';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppStack from './src/screens/navigation/AppStack';
-import { ActivityIndicator } from 'react-native-paper';
 import RTSplashScreen from './src/screens/splashScreen/RTSplashScreen';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 function App(): React.JSX.Element {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const Stack = createNativeStackNavigator();
+
+    GoogleSignin.configure({
+        forceCodeForRefreshToken: true,
+        offlineAccess: false,
+        profileImageSize: 120,
+        scopes: ['email', 'profile']
+    });
 
     useEffect(() => {
         const checkLoginStatus = async () => {

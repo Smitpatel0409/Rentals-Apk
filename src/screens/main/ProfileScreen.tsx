@@ -5,6 +5,7 @@ import { FONTS } from '../../constants/fonts';
 import CustomButton from '../../components/common/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 type ProfileParamList = {
     Auth: undefined;
@@ -18,6 +19,7 @@ const ProfileScreen = ({ navigation }: { navigation: NavigationProp<ProfileParam
         try {
             // Remove the login token
             await AsyncStorage.removeItem('isLoggedIn');
+            await GoogleSignin.signOut();
             setTimeout(() => {
                 setIsLoading(false);
                 navigation.reset({

@@ -18,6 +18,7 @@ import { LIGHT_COLORS } from '../../constants/colors';
 import Icon from 'react-native-vector-icons/Feather';
 import { NavigationProp } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInWithGoogle } from '../../utils/googleAuth';
 
 const gradientColors = [...lightColors].reverse();
 
@@ -51,12 +52,17 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
         storeData();
     };
 
+    const handleSignInWithGoogle = async () => {
+        const isLoggedInWithGoogle = await signInWithGoogle();
+        if (isLoggedInWithGoogle) {
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'App' }]
+            });
+        }
+    };
+
     return (
-        // <KeyboardAvoidingView
-        //   style={{flex: 1}} // Ensure the view takes up full height
-        //   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        //   keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 60} // Try with 0 offset for now
-        // >
         <ScrollView
             style={{ flex: 1, backgroundColor: 'white' }}
             keyboardShouldPersistTaps='handled'
@@ -136,7 +142,7 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
                     </View>
 
                     <View style={styles.socialsContainer}>
-                        <Pressable style={styles.socialsBtn}>
+                        <Pressable style={styles.socialsBtn} onPress={handleSignInWithGoogle}>
                             <Image
                                 style={{ width: '50%', height: '50%' }}
                                 resizeMode='cover'
@@ -150,7 +156,6 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
                 </View>
             </View>
         </ScrollView>
-        // </KeyboardAvoidingView>
     );
 };
 
