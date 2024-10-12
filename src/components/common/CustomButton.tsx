@@ -35,12 +35,11 @@ const CustomButton: React.FC<CustomButtonProps> = ({ onPress, title, disabled, l
 
 const styles = StyleSheet.create({
     btnContainer: {
-        flex: 1,
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         padding: 15,
         marginVertical: 15,
-        width: '100%',
         borderRadius: 12
     }
 });

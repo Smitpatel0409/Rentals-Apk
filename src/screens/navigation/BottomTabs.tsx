@@ -14,8 +14,16 @@ import {
     heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 
+export type BottomTabParamList = {
+    Home: undefined;
+    Wishlist: undefined;
+    Contracts: undefined;
+    Messages: undefined;
+    Profile: undefined;
+};
+
 const BottomTabs = () => {
-    const Tab = createBottomTabNavigator();
+    const Tab = createBottomTabNavigator<BottomTabParamList>();
     return (
         <Tab.Navigator
             screenOptions={{
@@ -57,7 +65,7 @@ const BottomTabs = () => {
                 }}
             />
             <Tab.Screen
-                name='My Contracts'
+                name='Contracts'
                 component={ContractsScreen}
                 options={{
                     tabBarIcon: ({ focused }) =>

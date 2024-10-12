@@ -1,15 +1,5 @@
-import {
-    Dimensions,
-    Image,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
+import { Dimensions, Image, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
-import CommonTextField from '../../components/common/CommonTextField';
-import CommonText from '../../components/common/CommonText';
 import { FONT_SIZES } from '../../constants/fontSizes';
 import { FONTS } from '../../constants/fonts';
 import {
@@ -27,6 +17,7 @@ import CustomButton from '../../components/common/CustomButton';
 import { LIGHT_COLORS } from '../../constants/colors';
 import Icon from 'react-native-vector-icons/Feather';
 import { NavigationProp } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const gradientColors = [...lightColors].reverse();
 
@@ -34,14 +25,31 @@ const gradientColors = [...lightColors].reverse();
 type AuthStackParamList = {
     Login: undefined;
     Register: undefined;
+    App: undefined;
 };
 
 const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParamList> }) => {
-    console.log(Dimensions.get('window').height);
     const [mobileNumber, setMobileNumber] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleLogin = () => {};
+    const storeData = async () => {
+        setLoading(true);
+        try {
+            await AsyncStorage.setItem('isLoggedIn', 'true');
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'App' }]
+            });
+        } catch (error) {
+            // Error saving data
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleLogin = () => {
+        storeData();
+    };
 
     return (
         // <KeyboardAvoidingView
@@ -149,56 +157,55 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  spacer: {
-    marginTop: hp('46%'),
-    backgroundColor: 'transparent',
-  },
-  container: {
-    paddingTop: 4,
-    paddingHorizontal: 16,
-    backgroundColor: '#ffffff',
-
-  },
-  gradient: {
-    height:hp('6%'),
-    width: '100%',
-  },
-  signupContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    gap: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  separator: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 6,
-    gap: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  divider: {
-    backgroundColor: '#ccc',
-    height: 1,
-    flexGrow: 1,
-  },
-  socialsContainer: {
-    flex: 1,
-    paddingHorizontal: wp('30%'),
-    marginVertical: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  socialsBtn: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: hp('5.5%'),
-    width: hp('5.5%'),
-    borderRadius: 50,
-    borderColor: '#999999',
-    borderWidth: 0.5,
-    overflow: 'hidden',
-  },
+    spacer: {
+        marginTop: hp('46%'),
+        backgroundColor: 'transparent'
+    },
+    container: {
+        paddingTop: 4,
+        paddingHorizontal: 16,
+        backgroundColor: '#ffffff'
+    },
+    gradient: {
+        height: hp('6%'),
+        width: '100%'
+    },
+    signupContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        gap: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    separator: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 6,
+        gap: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    divider: {
+        backgroundColor: '#ccc',
+        height: 1,
+        flexGrow: 1
+    },
+    socialsContainer: {
+        flex: 1,
+        paddingHorizontal: wp('30%'),
+        marginVertical: 5,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    socialsBtn: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: hp('5.5%'),
+        width: hp('5.5%'),
+        borderRadius: 50,
+        borderColor: '#999999',
+        borderWidth: 0.5,
+        overflow: 'hidden'
+    }
 });

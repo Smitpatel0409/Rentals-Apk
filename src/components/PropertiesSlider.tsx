@@ -1,6 +1,6 @@
 import { Image, StyleSheet, View } from 'react-native';
 import React, { FC, useMemo } from 'react';
-import { propertiesData } from '../utils/productsData';
+import { propertiesData } from '../utils/propertiesData';
 import AutoScroll from '@homielab/react-native-auto-scroll';
 import {
     widthPercentageToDP as wp,
