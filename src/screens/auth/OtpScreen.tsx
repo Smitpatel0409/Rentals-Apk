@@ -72,14 +72,21 @@ const OtpScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParamLi
             })
             .catch(console.log);
 
-        startOtpListener((message) => {
-            // extract the otp using regex e.g. the below regex extracts 4 digit otp from message
-            const otpMatch = /(\d{4})/g.exec(message);
-            if (otpMatch) {
-                setOtpCode(otpMatch[1]);
-                otpRef.current?.setValue(otpMatch[1]);
-            }
-        });
+        const startListener = () => {
+            startOtpListener((message) => {
+                // extract the otp using regex e.g. the below regex extracts 4 digit otp from message
+                const otpMatch = /(\d{4})/g.exec(message);
+                if (otpMatch) {
+                    setOtpCode(otpMatch[1]);
+                    otpRef.current?.setValue(otpMatch[1]);
+
+                    startListener();
+                }
+            });
+        };
+
+        startListener();
+
         return () => removeListener();
     }, []);
 
