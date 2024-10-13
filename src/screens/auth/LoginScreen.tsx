@@ -1,4 +1,4 @@
-import { Dimensions, Image, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { FONT_SIZES } from '../../constants/fontSizes';
 import { FONTS } from '../../constants/fonts';
@@ -18,12 +18,13 @@ import { LIGHT_COLORS } from '../../constants/colors';
 import Icon from 'react-native-vector-icons/Feather';
 import { NavigationProp } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInWithGoogle } from '../../utils/googleAuth';
 
 const gradientColors = [...lightColors].reverse();
 
 // Define the stack types
-type AuthStackParamList = {
-    Login: undefined;
+export type AuthStackParamList = {
+    Otp: undefined;
     Register: undefined;
     App: undefined;
 };
@@ -36,10 +37,6 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
         setLoading(true);
         try {
             await AsyncStorage.setItem('isLoggedIn', 'true');
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'App' }]
-            });
         } catch (error) {
             // Error saving data
         } finally {
@@ -48,7 +45,18 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
     };
 
     const handleLogin = () => {
-        storeData();
+        navigation.navigate('Otp');
+    };
+
+    const handleSignInWithGoogle = async () => {
+        const isLoggedInWithGoogle = await signInWithGoogle();
+        if (isLoggedInWithGoogle) {
+            storeData();
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'App' }]
+            });
+        }
     };
 
     return (
@@ -136,7 +144,7 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
                     </View>
 
                     <View style={styles.socialsContainer}>
-                        <Pressable style={styles.socialsBtn}>
+                        <Pressable style={styles.socialsBtn} onPress={handleSignInWithGoogle}>
                             <Image
                                 style={{ width: '50%', height: '50%' }}
                                 resizeMode='cover'
