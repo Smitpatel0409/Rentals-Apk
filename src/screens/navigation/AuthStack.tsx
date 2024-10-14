@@ -3,11 +3,12 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../auth/LoginScreen';
 import RegisterScreen from '../auth/RegisterScreen';
+import OtpScreen from '../auth/OtpScreen';
 
 export type AuthStackParamList = {
     Login: undefined;
     Register: undefined;
-    Main: undefined;
+    Otp: undefined;
 };
 
 const AuthStack = () => {
@@ -19,6 +20,18 @@ const AuthStack = () => {
         >
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='Register' component={RegisterScreen} />
+            <Stack.Screen
+                name='Otp'
+                component={OtpScreen}
+                options={{
+                    headerShown: true,
+                    headerTitle: '',
+                    headerTransparent: true,
+                    headerStyle: {
+                        backgroundColor: 'transparent'
+                    }
+                }}
+            />
         </Stack.Navigator>
     );
 };
