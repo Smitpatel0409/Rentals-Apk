@@ -124,7 +124,7 @@ const OtpScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParamLi
 
                 <View style={styles.sendOtpAgainContainer}>
                     <CustomText color='#cccccc'>Didn't receive an OTP code?</CustomText>
-                    <Pressable onPress={handleOtpVerify}>
+                    <Pressable onPress={() => {}}>
                         <CustomText color={LIGHT_COLORS.PRIMARY} fontFamily={FONTS.SEMI_BOLD}>
                             Send code again
                         </CustomText>
