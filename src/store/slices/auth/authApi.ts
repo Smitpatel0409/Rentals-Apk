@@ -1,4 +1,4 @@
-import { serverApi } from '@/store/serverApi';
+import { serverApi } from '../../serverApi';
 
 export const authApi = serverApi.enhanceEndpoints({ addTagTypes: ['User'] }).injectEndpoints({
     endpoints: (builder) => ({
