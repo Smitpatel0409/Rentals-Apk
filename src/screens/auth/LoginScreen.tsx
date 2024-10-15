@@ -59,16 +59,6 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
         }
     };
 
-    const handleSignInWithGoogle = async () => {
-        const isLoggedInWithGoogle = await signInWithGoogle();
-        if (isLoggedInWithGoogle) {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'App' }]
-            });
-        }
-    };
-
     return (
         <ScrollView
             style={{ flex: 1, backgroundColor: 'white' }}
