@@ -1,4 +1,4 @@
-import { Dimensions, Image, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { FONT_SIZES } from '../../constants/fontSizes';
 import { FONTS } from '../../constants/fonts';
@@ -23,8 +23,8 @@ import { signInWithGoogle } from '../../utils/googleAuth';
 const gradientColors = [...lightColors].reverse();
 
 // Define the stack types
-type AuthStackParamList = {
-    Login: undefined;
+export type AuthStackParamList = {
+    Otp: undefined;
     Register: undefined;
     App: undefined;
 };
@@ -37,10 +37,6 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
         setLoading(true);
         try {
             await AsyncStorage.setItem('isLoggedIn', 'true');
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'App' }]
-            });
         } catch (error) {
             // Error saving data
         } finally {
@@ -49,7 +45,18 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
     };
 
     const handleLogin = () => {
-        storeData();
+        navigation.navigate('Otp');
+    };
+
+    const handleSignInWithGoogle = async () => {
+        const isLoggedInWithGoogle = await signInWithGoogle();
+        if (isLoggedInWithGoogle) {
+            storeData();
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'App' }]
+            });
+        }
     };
 
     const handleSignInWithGoogle = async () => {
