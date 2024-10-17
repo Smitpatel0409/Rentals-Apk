@@ -9,24 +9,33 @@ interface TextFieldProps {
     leftIcon?: React.ReactNode;
     onClear?: () => void;
     right?: boolean;
+    label?: string;
 }
 
 const CustomTextField: React.FC<TextFieldProps & React.ComponentProps<TextInput>> = ({
     leftIcon,
     onClear,
     right = true,
+    label,
     ...props
 }) => {
     return (
-        <View style={styles.flexRow}>
-            {leftIcon}
-            <TextInput {...props} style={styles.inputContainer} placeholderTextColor='#cccccc' />
-            <View style={styles.clearIcon}>
-                {props.value?.length != 0 && right && (
-                    <Pressable onPress={onClear}>
-                        <Icon name='close-circle-sharp' size={RFValue(16)} color='#ccc' />
-                    </Pressable>
-                )}
+        <View>
+            {label && <Text style={styles.label}>{label}</Text>}
+            <View style={styles.flexRow}>
+                {leftIcon}
+                <TextInput
+                    {...props}
+                    style={styles.inputContainer}
+                    placeholderTextColor='#cccccc'
+                />
+                <View style={styles.clearIcon}>
+                    {props.value?.length != 0 && right && (
+                        <Pressable onPress={onClear}>
+                            <Icon name='close-circle-sharp' size={RFValue(16)} color='#ccc' />
+                        </Pressable>
+                    )}
+                </View>
             </View>
         </View>
     );
@@ -35,13 +44,19 @@ const CustomTextField: React.FC<TextFieldProps & React.ComponentProps<TextInput>
 export default CustomTextField;
 
 const styles = StyleSheet.create({
+    label: {
+        fontFamily: FONTS.REGULAR,
+        fontSize: RFValue(12),
+        color: '#5f5f5f',
+        marginBottom: 2
+    },
     text: {
         width: '10%',
         marginLeft: 10
     },
     flexRow: {
         flexDirection: 'row',
-        paddingLeft: 18,
+        paddingLeft: 14,
         height: 56,
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -51,15 +66,16 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 1, height: 2 },
         shadowOpacity: 0.8,
         shadowRadius: 4,
-        shadowColor: '#999999'
+        shadowColor: '#999999',
+        marginBottom: 10
     },
     inputContainer: {
         height: '100%',
         width: '76%',
-        fontFamily: FONTS.SEMI_BOLD,
+        fontFamily: FONTS.REGULAR,
         fontSize: RFValue(12),
-        paddingVertical: 14,
-        color: 'black'
+        paddingBottom: 6,
+        color: '#5f5f5f'
     },
     clearIcon: {
         width: '8%',

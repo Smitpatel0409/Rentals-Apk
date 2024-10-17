@@ -1,4 +1,4 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text, View, TextStyle } from 'react-native';
 import React from 'react';
 import { TouchableRipple } from 'react-native-paper';
 import CustomText from './CustomText';
@@ -8,16 +8,26 @@ import { LIGHT_COLORS } from '../../constants/colors';
 interface CustomButtonProps {
     onPress: () => void;
     title: string;
-    disabled: boolean;
-    loading: boolean;
+    disabled?: boolean;
+    loading?: boolean;
+    styleContainer?: object;
+    styleTextColor: string;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ onPress, title, disabled, loading }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({
+    onPress,
+    title,
+    disabled = false,
+    loading = false,
+    styleContainer,
+    styleTextColor
+}) => {
     return (
         <Pressable
             style={[
                 styles.btnContainer,
-                { backgroundColor: disabled ? '#9197a6' : LIGHT_COLORS.PRIMARY }
+                { backgroundColor: disabled ? '#9197a6' : LIGHT_COLORS.PRIMARY },
+                styleContainer
             ]}
             onPress={onPress}
             disabled={disabled}
@@ -25,7 +35,12 @@ const CustomButton: React.FC<CustomButtonProps> = ({ onPress, title, disabled, l
             {loading ? (
                 <ActivityIndicator color='white' size='small' />
             ) : (
-                <CustomText variant='h6' color='#ffffff' fontFamily={FONTS.SEMI_BOLD}>
+                <CustomText
+                    style={[styles.btnText]}
+                    variant='h6'
+                    color={styleTextColor}
+                    fontFamily={FONTS.SEMI_BOLD}
+                >
                     {title}
                 </CustomText>
             )}
@@ -41,6 +56,11 @@ const styles = StyleSheet.create({
         padding: 15,
         marginVertical: 15,
         borderRadius: 12
+    },
+    btnText: {
+        textAlign: 'center',
+        color: 'white'
     }
 });
+
 export default CustomButton;
