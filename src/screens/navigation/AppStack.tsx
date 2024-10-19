@@ -3,9 +3,16 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabs from './BottomTabs';
 import AuthStack from './AuthStack';
+import SearchScreen from '../main/SearchScreen';
+import Notifications from '../main/NotificationsScreen';
+import NotificationsScreen from '../main/NotificationsScreen';
+import PropertyDetailsScreen from '../main/PropertyDetailsScreen';
 
 export type AppStackParamList = {
     TabBar: undefined;
+    Search: undefined;
+    Notifications: undefined;
+    PropertyDetails: undefined;
 };
 
 const AppStack = () => {
@@ -17,6 +24,17 @@ const AppStack = () => {
             screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
         >
             <Stack.Screen name='TabBar' component={BottomTabs} />
+            <Stack.Screen
+                name='Search'
+                component={SearchScreen}
+                options={{ animation: 'slide_from_bottom' }}
+            />
+            <Stack.Screen name='Notifications' component={NotificationsScreen} />
+            <Stack.Screen
+                name='PropertyDetails'
+                component={PropertyDetailsScreen}
+                options={{ animation: 'fade' }}
+            />
         </Stack.Navigator>
     );
 };
