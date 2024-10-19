@@ -7,9 +7,13 @@ import HelpCenter from '../../components/pages/profiles/HelpCenter';
 import MyAddress from '../../components/pages/profiles/MyAddress';
 import MyCard from '../../components/pages/profiles/MyCard';
 import MyProfile from '../../components/pages/profiles/MyProfile';
-import Notifications from '../../components/pages/profiles/Notifications';
+import NotificationsSettings from '../../components/pages/profiles/Notifications';
 import PrivacyPolicy from '../../components/pages/profiles/PrivacyPolicy';
 import BottomTabs from './BottomTabs';
+import AuthStack from './AuthStack';
+import SearchScreen from '../main/SearchScreen';
+import NotificationsScreen from '../main/NotificationsScreen';
+import PropertyDetailsScreen from '../main/PropertyDetailsScreen';
 
 export type AppStackParamList = {
     TabBar: undefined;
@@ -18,10 +22,13 @@ export type AppStackParamList = {
     MyAddress: undefined;
     ChangePassword: undefined;
     MyCard: undefined;
-    Notifications: undefined;
+    NotificationsSettings: undefined;
     HelpCenter: undefined;
     PrivacyPolicy: undefined;
     Auth: undefined;
+    NotificationsScreen: undefined;
+    PropertyDetails: undefined;
+    Search: undefined;
 };
 
 const AppStack = () => {
@@ -83,8 +90,8 @@ const AppStack = () => {
                 }}
             />
             <Stack.Screen
-                name='Notifications'
-                component={Notifications}
+                name='NotificationsSettings'
+                component={NotificationsSettings}
                 options={{
                     headerShown: true,
                     headerStyle: { backgroundColor: 'white' },
@@ -108,6 +115,17 @@ const AppStack = () => {
                     headerStyle: { backgroundColor: 'white' },
                     headerTitleAlign: 'center'
                 }}
+            />
+            <Stack.Screen
+                name='Search'
+                component={SearchScreen}
+                options={{ animation: 'slide_from_bottom' }}
+            />
+            <Stack.Screen name='NotificationsScreen' component={NotificationsScreen} />
+            <Stack.Screen
+                name='PropertyDetails'
+                component={PropertyDetailsScreen}
+                options={{ animation: 'fade' }}
             />
         </Stack.Navigator>
     );

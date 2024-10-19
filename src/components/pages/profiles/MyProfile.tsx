@@ -1,11 +1,14 @@
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import React from 'react';
+import { Image, Modal, ScrollView, StyleSheet, Touchable, View } from 'react-native';
+import React, { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import CustomTextField from '../../common/CustomTextField';
 import CustomText from '../../common/CustomText';
 import CustomButton from '../../common/CustomButton';
+import { Calendar } from 'react-native-calendars';
+import { LIGHT_COLORS } from '../../../constants/colors';
+import { NavigationProp } from '@react-navigation/native';
 
 // Validation Schema using Yup
 const profileSchema = Yup.object().shape({
@@ -18,7 +21,13 @@ const profileSchema = Yup.object().shape({
     dob: Yup.date().required('Date of Birth is required')
 });
 
-const MyProfile = () => {
+type BottomParamList = {
+    Profile: undefined;
+};
+
+const MyProfile = ({ navigation }: { navigation: NavigationProp<BottomParamList> }) => {
+    const [isShowDatePicker, setIsShowDatePicker] = useState(false);
+    const [selectedDate, setSelectedDate] = useState('');
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Formik
@@ -27,7 +36,7 @@ const MyProfile = () => {
                     email: 'jamesandreas@gmail.com',
                     phone: '+1-343-456-009',
                     address: 'Roverio 456, West Street, Berlin',
-                    dob: '12 October 1992'
+                    dob: selectedDate || '1992-10-13'
                 }}
                 validationSchema={profileSchema}
                 onSubmit={(values) => {
@@ -41,7 +50,8 @@ const MyProfile = () => {
                     values,
                     errors,
                     touched,
-                    isSubmitting
+                    isSubmitting,
+                    setFieldValue
                 }) => (
                     <View style={styles.container}>
                         <View style={styles.avatarContainer}>
@@ -52,7 +62,7 @@ const MyProfile = () => {
                             <View style={styles.profileIconContainer}>
                                 <Ionicons
                                     name={'create-outline'}
-                                    color={'white'}
+                                    color={LIGHT_COLORS.WHITE}
                                     size={15}
                                     style={styles.profileIcon}
                                 />
@@ -65,7 +75,7 @@ const MyProfile = () => {
                                 leftIcon={
                                     <Ionicons
                                         name={'person-outline'}
-                                        color={'#999999'}
+                                        color={LIGHT_COLORS.GRAY}
                                         size={20}
                                         style={styles.profileIcon}
                                     />
@@ -78,7 +88,7 @@ const MyProfile = () => {
                                 onBlur={handleBlur('fullname')}
                             />
                             {errors.fullname && touched.fullname ? (
-                                <CustomText style={styles.errorText} color='#fd7871' variant='h8'>
+                                <CustomText color={LIGHT_COLORS.ERROR} variant='h8'>
                                     {errors.fullname}
                                 </CustomText>
                             ) : null}
@@ -90,7 +100,7 @@ const MyProfile = () => {
                                 leftIcon={
                                     <Ionicons
                                         name={'mail-outline'}
-                                        color={'#999999'}
+                                        color={LIGHT_COLORS.GRAY}
                                         size={20}
                                         style={styles.profileIcon}
                                     />
@@ -103,7 +113,7 @@ const MyProfile = () => {
                                 onBlur={handleBlur('email')}
                             />
                             {errors.email && touched.email ? (
-                                <CustomText style={styles.errorText} color='#fd7871' variant='h8'>
+                                <CustomText color={LIGHT_COLORS.ERROR} variant='h8'>
                                     {errors.email}
                                 </CustomText>
                             ) : null}
@@ -115,7 +125,7 @@ const MyProfile = () => {
                                 leftIcon={
                                     <Ionicons
                                         name={'call-outline'}
-                                        color={'#999999'}
+                                        color={LIGHT_COLORS.GRAY}
                                         size={20}
                                         style={styles.profileIcon}
                                     />
@@ -128,7 +138,7 @@ const MyProfile = () => {
                                 onBlur={handleBlur('phone')}
                             />
                             {errors.phone && touched.phone ? (
-                                <CustomText style={styles.errorText} color='#fd7871' variant='h8'>
+                                <CustomText color={LIGHT_COLORS.ERROR} variant='h8'>
                                     {errors.phone}
                                 </CustomText>
                             ) : null}
@@ -140,7 +150,7 @@ const MyProfile = () => {
                                 leftIcon={
                                     <Ionicons
                                         name={'location-outline'}
-                                        color={'#999999'}
+                                        color={LIGHT_COLORS.GRAY}
                                         size={20}
                                         style={styles.profileIcon}
                                     />
@@ -153,7 +163,7 @@ const MyProfile = () => {
                                 onBlur={handleBlur('address')}
                             />
                             {errors.address && touched.address ? (
-                                <CustomText style={styles.errorText} color='#fd7871' variant='h8'>
+                                <CustomText color={LIGHT_COLORS.ERROR} variant='h8'>
                                     {errors.address}
                                 </CustomText>
                             ) : null}
@@ -165,7 +175,7 @@ const MyProfile = () => {
                                 leftIcon={
                                     <Ionicons
                                         name={'calendar-outline'}
-                                        color={'#999999'}
+                                        color={LIGHT_COLORS.GRAY}
                                         size={20}
                                         style={styles.profileIcon}
                                     />
@@ -173,22 +183,83 @@ const MyProfile = () => {
                                 placeholder={'Date of Birth'}
                                 label={'Date of Birth'}
                                 value={values.dob}
-                                onChangeText={handleChange('dob')}
+                                isCalender={true}
+                                onPress={() => setIsShowDatePicker(true)}
+                                editable={false}
+                                onClear={() => setFieldValue('dob', '')}
+                                right={true}
                                 onBlur={handleBlur('dob')}
                             />
                             {errors.dob && touched.dob ? (
-                                <CustomText style={{ margin: 0 }} color='#fd7871' variant='h8'>
+                                <CustomText color={LIGHT_COLORS.ERROR} variant='h8'>
                                     {errors.dob}
                                 </CustomText>
                             ) : null}
                         </View>
 
+                        {isShowDatePicker && (
+                            <Modal
+                                visible={isShowDatePicker}
+                                transparent={true}
+                                animationType='none'
+                            >
+                                <View style={styles.modalContainer}>
+                                    <View style={styles.calendarContainer}>
+                                        <Calendar
+                                            onDayPress={(day: any) => {
+                                                console.log('Selected date:', day);
+                                                setSelectedDate(day.dateString);
+                                                setFieldValue('dob', day.dateString);
+                                                setIsShowDatePicker(false);
+                                            }}
+                                            markedDates={{
+                                                [selectedDate]: {
+                                                    selected: true,
+                                                    disableTouchEvent: true,
+                                                    selectedDotColor: 'orange'
+                                                }
+                                            }}
+                                            theme={{
+                                                backgroundColor: LIGHT_COLORS.BACKGROUND,
+                                                calendarBackground: LIGHT_COLORS.BACKGROUND,
+                                                textSectionTitleColor: '#b6c1cd',
+                                                selectedDayBackgroundColor: LIGHT_COLORS.PRIMARY,
+                                                selectedDayTextColor: '#ffffff',
+                                                todayTextColor: LIGHT_COLORS.PRIMARY,
+                                                dayTextColor: '#2d4150',
+                                                textDisabledColor: '#d9e1e8',
+                                                dotColor: LIGHT_COLORS.PRIMARY,
+                                                selectedDotColor: '#ffffff',
+                                                arrowColor: LIGHT_COLORS.PRIMARY,
+                                                monthTextColor: LIGHT_COLORS.PRIMARY,
+                                                indicatorColor: LIGHT_COLORS.PRIMARY,
+                                                textDayFontFamily: 'monospace',
+                                                textMonthFontFamily: 'monospace',
+                                                textDayHeaderFontFamily: 'monospace',
+                                                textDayFontWeight: '300',
+                                                textMonthFontWeight: 'bold',
+                                                textDayHeaderFontWeight: '300',
+                                                textDayFontSize: 16,
+                                                textMonthFontSize: 16,
+                                                textDayHeaderFontSize: 16
+                                            }}
+                                        />
+                                        <CustomButton
+                                            styleContainer={styles.calendarButton}
+                                            styleTextColor={LIGHT_COLORS.WHITE}
+                                            title='Close'
+                                            onPress={() => setIsShowDatePicker(false)}
+                                        />
+                                    </View>
+                                </View>
+                            </Modal>
+                        )}
                         {/* Buttons Container */}
                         <View style={styles.buttonContainer}>
                             {/* Cancel Button */}
                             <CustomButton
                                 styleContainer={styles.cancelButton}
-                                styleTextColor={styles.cancelButtonText.color}
+                                styleTextColor={styles.cancelButton.color}
                                 title='Cancel'
                                 onPress={() => {
                                     console.log('Cancel pressed');
@@ -202,7 +273,12 @@ const MyProfile = () => {
                                 styleContainer={styles.submitButton}
                                 styleTextColor={styles.submitButtonText.color}
                                 title='Save Profile'
-                                onPress={handleSubmit}
+                                onPress={() => {
+                                    handleSubmit();
+                                    setTimeout(() => {
+                                        navigation.navigate('Profile');
+                                    }, 1000);
+                                }}
                                 disabled={isSubmitting}
                                 loading={isSubmitting}
                             />
@@ -219,11 +295,11 @@ export default MyProfile;
 const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1,
-        backgroundColor: '#ffffff'
+        backgroundColor: LIGHT_COLORS.BACKGROUND
     },
     container: {
-        backgroundColor: '#ffffff',
         flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
         marginHorizontal: 15,
         marginVertical: 0
@@ -232,7 +308,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         alignItems: 'center',
         marginVertical: 20,
-        borderColor: '#ccc',
+        borderColor: LIGHT_COLORS.BORDER,
         borderRadius: 20,
         position: 'relative'
     },
@@ -246,27 +322,27 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 35,
         right: 0,
-        backgroundColor: '#292929',
+        backgroundColor: LIGHT_COLORS.TEXT,
         borderRadius: 50,
         padding: 2,
         borderWidth: 1,
-        borderColor: '#ccc'
+        borderColor: LIGHT_COLORS.BORDER
     },
     profileIcon: {
         padding: 5,
-        borderColor: '#ccc'
+        borderColor: LIGHT_COLORS.BORDER
     },
     profileDetailsContainer: {
         flex: 1,
         width: '100%',
         marginBottom: 15
     },
-    errorText: {
-        color: 'red',
-        fontSize: 12,
-        marginLeft: 20,
-        marginTop: 2
-    },
+    // errorText: {
+    //     color: 'red',
+    //     fontSize: 12,
+    //     // marginLeft: 20,
+    //     marginTop: -2
+    // },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -276,29 +352,44 @@ const styles = StyleSheet.create({
     cancelButton: {
         flex: 1,
         backgroundColor: 'transparent',
-        paddingVertical: 15,
+        paddingVertical: 10,
         paddingHorizontal: 30,
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: '#1246bc',
-        marginRight: 10
+        borderColor: LIGHT_COLORS.PRIMARY,
+        marginRight: 10,
+        color: LIGHT_COLORS.PRIMARY
     },
-    cancelButtonText: {
-        color: '#1246bc',
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
+
     submitButton: {
         flex: 1,
-        backgroundColor: '#1246bc',
+        backgroundColor: LIGHT_COLORS.PRIMARY,
         paddingVertical: 15,
         paddingHorizontal: 30,
         borderRadius: 10,
         marginLeft: 10
     },
     submitButtonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold'
+        color: LIGHT_COLORS.BACKGROUND,
+        fontSize: 16
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    calendarContainer: {
+        backgroundColor: LIGHT_COLORS.BACKGROUND,
+        borderRadius: 10,
+        padding: 20,
+        width: '90%'
+    },
+    calendarButton: {
+        backgroundColor: LIGHT_COLORS.PRIMARY,
+        paddingVertical: 8,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        marginTop: 20
     }
 });

@@ -1,15 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Pressable, TextInput } from 'react-native-gesture-handler';
 import { FONTS } from '../../constants/fonts';
 import { RFValue } from 'react-native-responsive-fontsize';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { LIGHT_COLORS } from '../../constants/colors';
 
 interface TextFieldProps {
     leftIcon?: React.ReactNode;
     onClear?: () => void;
     right?: boolean;
     label?: string;
+    isCalender?: boolean;
+    onPress?: () => void;
 }
 
 const CustomTextField: React.FC<TextFieldProps & React.ComponentProps<TextInput>> = ({
@@ -17,6 +20,8 @@ const CustomTextField: React.FC<TextFieldProps & React.ComponentProps<TextInput>
     onClear,
     right = true,
     label,
+    isCalender,
+    onPress,
     ...props
 }) => {
     return (
@@ -24,11 +29,21 @@ const CustomTextField: React.FC<TextFieldProps & React.ComponentProps<TextInput>
             {label && <Text style={styles.label}>{label}</Text>}
             <View style={styles.flexRow}>
                 {leftIcon}
-                <TextInput
-                    {...props}
-                    style={styles.inputContainer}
-                    placeholderTextColor='#cccccc'
-                />
+                {isCalender ? (
+                    <Pressable onPress={onPress} style={styles.pressable}>
+                        <TextInput
+                            {...props}
+                            style={styles.inputContainer}
+                            placeholderTextColor='#cccccc'
+                        />
+                    </Pressable>
+                ) : (
+                    <TextInput
+                        {...props}
+                        style={styles.inputContainer}
+                        placeholderTextColor='#cccccc'
+                    />
+                )}
                 <View style={styles.clearIcon}>
                     {props.value?.length != 0 && right && (
                         <Pressable onPress={onClear}>
@@ -47,8 +62,9 @@ const styles = StyleSheet.create({
     label: {
         fontFamily: FONTS.REGULAR,
         fontSize: RFValue(12),
-        color: '#5f5f5f',
-        marginBottom: 2
+        color: LIGHT_COLORS.TEXT,
+        marginBottom: 2,
+        marginTop: 5
     },
     text: {
         width: '10%',
@@ -67,7 +83,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 4,
         shadowColor: '#999999',
-        marginBottom: 10
+        marginBottom: 5
     },
     inputContainer: {
         height: '100%',
@@ -75,12 +91,15 @@ const styles = StyleSheet.create({
         fontFamily: FONTS.REGULAR,
         fontSize: RFValue(12),
         paddingBottom: 6,
-        color: '#5f5f5f'
+        color: LIGHT_COLORS.TEXT
     },
     clearIcon: {
         width: '8%',
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 10
+    },
+    pressable: {
+        flexDirection: 'row'
     }
 });

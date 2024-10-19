@@ -1,9 +1,18 @@
-import { ActivityIndicator, Pressable, StyleSheet, Text, View, TextStyle } from 'react-native';
+import {
+    ActivityIndicator,
+    Pressable,
+    StyleSheet,
+    Text,
+    View,
+    TextStyle,
+    Touchable
+} from 'react-native';
 import React from 'react';
 import { TouchableRipple } from 'react-native-paper';
 import CustomText from './CustomText';
 import { FONTS } from '../../constants/fonts';
 import { LIGHT_COLORS } from '../../constants/colors';
+import { TouchableOpacity } from 'react-native';
 
 interface CustomButtonProps {
     onPress: () => void;
@@ -11,7 +20,7 @@ interface CustomButtonProps {
     disabled?: boolean;
     loading?: boolean;
     styleContainer?: object;
-    styleTextColor: string;
+    styleTextColor?: string;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -23,7 +32,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     styleTextColor
 }) => {
     return (
-        <Pressable
+        <TouchableOpacity
+            activeOpacity={0.8}
             style={[
                 styles.btnContainer,
                 { backgroundColor: disabled ? '#9197a6' : LIGHT_COLORS.PRIMARY },
@@ -44,7 +54,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
                     {title}
                 </CustomText>
             )}
-        </Pressable>
+        </TouchableOpacity>
     );
 };
 

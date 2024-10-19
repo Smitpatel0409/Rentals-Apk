@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { LIGHT_COLORS } from '../../constants/colors';
 
 type ProfileParamList = {
     Auth: undefined;
@@ -63,7 +64,7 @@ const profileData = [
     {
         icon: 'log-out-outline',
         title: 'Logout',
-        color: '#fd7871'
+        color: LIGHT_COLORS.DANGER
     }
 ];
 
@@ -82,7 +83,7 @@ const ProfileScreen = ({ navigation }: { navigation: NavigationProp<ProfileParam
                     index: 0,
                     routes: [{ name: 'Auth' }]
                 });
-            }, 1000);
+            }, 500);
         } catch (error) {
             console.error('Error during logout:', error);
         } finally {
@@ -99,19 +100,24 @@ const ProfileScreen = ({ navigation }: { navigation: NavigationProp<ProfileParam
                             source={require('../../assets/images/avatar.jpg')}
                             style={styles.avatar}
                         />
-                        <CustomText
-                            variant='h6'
-                            fontFamily={FONTS.SEMI_BOLD}
-                            style={styles.username}
-                        >
+                        <CustomText variant='h6' fontFamily={FONTS.SEMI_BOLD}>
                             James Andreas
                         </CustomText>
-                        <CustomText variant='h7' fontFamily={FONTS.REGULAR} style={styles.email}>
+                        <CustomText variant='h7' fontFamily={FONTS.REGULAR}>
                             jamesandreas@gmail.com
                         </CustomText>
                         <View style={styles.verified}>
-                            <Ionicons name='checkmark-circle-outline' color='white' size={18} />
-                            <CustomText variant='h8' color='white' fontFamily={FONTS.SEMI_BOLD}>
+                            <Ionicons
+                                name='checkmark-circle-outline'
+                                color={LIGHT_COLORS.WHITE}
+                                size={18}
+                            />
+                            <CustomText
+                                variant='h8'
+                                color={LIGHT_COLORS.WHITE}
+                                fontFamily={FONTS.SEMI_BOLD}
+                                style={{ marginTop: 2 }}
+                            >
                                 Verified
                             </CustomText>
                         </View>
@@ -136,13 +142,13 @@ const ProfileScreen = ({ navigation }: { navigation: NavigationProp<ProfileParam
                                 <View style={styles.profileItem}>
                                     <Ionicons
                                         name={data?.icon}
-                                        color={data.color || 'gray'}
+                                        color={data.color || LIGHT_COLORS.GRAY}
                                         size={20}
                                         style={styles.profileIcon}
                                     />
                                     <CustomText
                                         variant='h5'
-                                        color={data.color || '#5f5f5f'}
+                                        color={data.color || LIGHT_COLORS.TEXT}
                                         fontFamily={FONTS.REGULAR}
                                     >
                                         {data?.title}
@@ -150,7 +156,7 @@ const ProfileScreen = ({ navigation }: { navigation: NavigationProp<ProfileParam
                                 </View>
                                 <Ionicons
                                     name='chevron-forward-outline'
-                                    color={data.color || 'gray'}
+                                    color={data.color || LIGHT_COLORS.GRAY}
                                     size={18}
                                     style={styles.profileIcon}
                                 />
@@ -172,13 +178,13 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
         paddingBottom: 20,
-        backgroundColor: 'white'
+        backgroundColor: LIGHT_COLORS.BACKGROUND
     },
     avatarContainer: {
         paddingVertical: 20,
         alignItems: 'center',
         marginVertical: 20,
-        borderColor: '#ccc',
+        borderColor: LIGHT_COLORS.BORDER,
         borderWidth: 0.5,
         borderRadius: 20,
         position: 'relative'
@@ -190,8 +196,8 @@ const styles = StyleSheet.create({
         gap: 5,
         top: 10,
         right: 10,
-        backgroundColor: '#1aacac',
-        color: 'white',
+        backgroundColor: LIGHT_COLORS.SECONDARY,
+        color: LIGHT_COLORS.WHITE,
         padding: 8,
         paddingHorizontal: 14,
         borderRadius: 8
@@ -202,12 +208,6 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         marginBottom: 10
     },
-    username: {
-        fontSize: 12
-    },
-    email: {
-        fontSize: 10
-    },
     profileListing: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -216,11 +216,11 @@ const styles = StyleSheet.create({
         paddingVertical: 18
     },
     profileListingBorder: {
-        borderBottomColor: '#ccc',
+        borderBottomColor: LIGHT_COLORS.BORDER,
         borderBottomWidth: 0.5
     },
     profileListingHovered: {
-        backgroundColor: '#f0f0f0'
+        backgroundColor: LIGHT_COLORS.HOVER
     },
     profileItem: {
         flexDirection: 'row',

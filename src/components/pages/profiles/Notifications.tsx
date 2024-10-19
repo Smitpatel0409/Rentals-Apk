@@ -3,7 +3,7 @@ import React from 'react';
 import CustomText from '../../common/CustomText';
 import { FONTS } from '../../../constants/fonts';
 
-const Notifications = () => {
+const NotificationsSettings = () => {
     return (
         <View>
             <CustomText variant='h5' fontFamily={FONTS.SEMI_BOLD}>
@@ -13,6 +13,6 @@ const Notifications = () => {
     );
 };
 
-export default Notifications;
+export default NotificationsSettings;
 
 const styles = StyleSheet.create({});

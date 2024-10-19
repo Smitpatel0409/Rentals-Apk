@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     filledOtpContainer: {
-        borderColor: LIGHT_COLORS.SECONDARY
+        borderColor: LIGHT_COLORS.SUCCESS
     },
     sendOtpAgainContainer: {
         width: '100%',

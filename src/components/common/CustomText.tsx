@@ -67,6 +67,7 @@ const CustomText: React.FC<TextProps> = ({
                 { color: color },
                 { fontSize: computedFontSize },
                 { fontFamily: fontFamily },
+                { ...style },
                 styles.text
             ]}
             numberOfLines={numberOfLines !== undefined ? numberOfLines : undefined}
