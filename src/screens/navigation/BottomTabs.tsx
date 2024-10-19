@@ -37,7 +37,7 @@ const BottomTabs = () => {
                     elevation: 4 // Elevation for Android
                 },
                 tabBarShowLabel: false,
-                headerTitleAlign: 'center'
+                headerShown: false
             }}
         >
             <Tab.Screen

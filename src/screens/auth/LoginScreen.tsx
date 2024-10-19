@@ -1,4 +1,11 @@
-import { Image, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import {
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    useColorScheme,
+    View
+} from 'react-native';
 import React, { useState } from 'react';
 import { FONT_SIZES } from '../../constants/fontSizes';
 import { FONTS } from '../../constants/fonts';
@@ -14,7 +21,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import CustomText from '../../components/common/CustomText';
 import CustomTextField from '../../components/common/CustomTextField';
 import CustomButton from '../../components/common/CustomButton';
-import { LIGHT_COLORS } from '../../constants/colors';
+import { DARK_COLORS, LIGHT_COLORS } from '../../constants/colors';
 import Icon from 'react-native-vector-icons/Feather';
 import { NavigationProp } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';

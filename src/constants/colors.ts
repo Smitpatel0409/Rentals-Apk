@@ -14,7 +14,7 @@ export const LIGHT_COLORS = {
 
 // Colors for dark mode
 export const DARK_COLORS = {
-    PRIMARY: '#2980b9',
+    PRIMARY: '#1246bc',
     SECONDARY: '#27ae60',
     BACKGROUND: '#121212',
     TEXT: '#f4f4f4',
