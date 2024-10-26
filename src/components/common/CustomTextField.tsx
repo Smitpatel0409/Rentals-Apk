@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         height: '100%',
         width: '76%',
-        fontFamily: FONTS.REGULAR,
+        fontFamily: FONTS.SEMI_BOLD,
         fontSize: RFValue(12),
         paddingBottom: 6,
         color: LIGHT_COLORS.TEXT

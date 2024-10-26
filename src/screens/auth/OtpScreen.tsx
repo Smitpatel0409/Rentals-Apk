@@ -91,12 +91,12 @@ const OtpScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParamLi
     }, []);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: LIGHT_COLORS.WHITE }}>
             <View style={styles.container}>
                 <CustomText variant='h1' fontFamily={FONTS.SEMI_BOLD}>
                     Enter Your OTP Code
                 </CustomText>
-                <CustomText color='#999999' variant='body'>
+                <CustomText color={LIGHT_COLORS.GRAY} variant='body'>
                     Verfiy your phone number and get access to exclusive rentals features
                 </CustomText>
 
@@ -110,7 +110,7 @@ const OtpScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParamLi
                     theme={{
                         containerStyle: styles.otpContainer,
                         pinCodeContainerStyle: styles.emptyOtpContainer,
-                        pinCodeTextStyle: { fontFamily: FONTS.MEDIUM, color: 'black' },
+                        pinCodeTextStyle: { fontFamily: FONTS.MEDIUM, color: LIGHT_COLORS.BLACK },
                         filledPinCodeContainerStyle: styles.filledOtpContainer
                     }}
                     ref={otpRef}
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     emptyOtpContainer: {
-        borderColor: '#cccccc',
+        borderColor: LIGHT_COLORS.BORDER,
         minWidth: wp('20%'),
         justifyContent: 'center',
         alignItems: 'center'

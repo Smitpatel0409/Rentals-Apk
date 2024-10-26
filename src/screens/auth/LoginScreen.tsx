@@ -68,7 +68,7 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
 
     return (
         <ScrollView
-            style={{ flex: 1, backgroundColor: 'white' }}
+            style={{ flex: 1, backgroundColor: LIGHT_COLORS.WHITE }}
             keyboardShouldPersistTaps='handled'
             automaticallyAdjustKeyboardInsets={true}
             alwaysBounceVertical={false}
@@ -126,7 +126,9 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
                         loading={loading}
                     />
                     <View style={styles.signupContainer}>
-                        <CustomText color='#ccc'>Don't have an account?</CustomText>
+                        <CustomText color={LIGHT_COLORS.SECONDARY_TEXT}>
+                            Don't have an account?
+                        </CustomText>
                         <Pressable
                             onPress={() => {
                                 navigation.navigate('Register');
@@ -139,7 +141,7 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
                     </View>
                     <View style={styles.separator}>
                         <View style={styles.divider} />
-                        <CustomText color='#999999' fontFamily={FONTS.SEMI_BOLD}>
+                        <CustomText color={LIGHT_COLORS.GRAY} fontFamily={FONTS.SEMI_BOLD}>
                             Or Login with:
                         </CustomText>
                         <View style={styles.divider} />
@@ -154,7 +156,7 @@ const LoginScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParam
                             />
                         </Pressable>
                         <View style={styles.socialsBtn}>
-                            <Icon name='more-horizontal' size={24} color='black' />
+                            <Icon name='more-horizontal' size={24} color={LIGHT_COLORS.BLACK} />
                         </View>
                     </View>
                 </View>
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 4,
         paddingHorizontal: 16,
-        backgroundColor: '#ffffff'
+        backgroundColor: LIGHT_COLORS.WHITE
     },
     gradient: {
         height: hp('6%'),
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     divider: {
-        backgroundColor: '#ccc',
+        backgroundColor: LIGHT_COLORS.BORDER,
         height: 1,
         flexGrow: 1
     },
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
         height: hp('5.5%'),
         width: hp('5.5%'),
         borderRadius: 50,
-        borderColor: '#999999',
+        borderColor: LIGHT_COLORS.GRAY,
         borderWidth: 0.5,
         overflow: 'hidden'
     }

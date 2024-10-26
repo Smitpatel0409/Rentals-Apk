@@ -10,6 +10,7 @@ import { FONTS } from '../constants/fonts';
 import CustomText from './common/CustomText';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { LIGHT_COLORS } from '../constants/colors';
 
 type PropertyCardParamList = {
     PropertyDetails: undefined;
@@ -59,10 +60,15 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
                 <Text style={styles.location}>{location}</Text>
                 <View style={styles.footerContainer}>
                     <View style={styles.priceContainer}>
-                        <TagIcon name='tag' size={18} color='#cccccc' style={{ marginRight: 4 }} />
+                        <TagIcon
+                            name='tag'
+                            size={18}
+                            color={LIGHT_COLORS.SECONDARY_TEXT}
+                            style={{ marginRight: 4 }}
+                        />
                         <CustomText color='#4CAF50' fontFamily={FONTS.BOLD}>
                             ₹ {price}
-                            <CustomText fontFamily={FONTS.BOLD} color='#999999'>
+                            <CustomText fontFamily={FONTS.BOLD} color={LIGHT_COLORS.GRAY}>
                                 {' '}
                                 / Month
                             </CustomText>
@@ -82,7 +88,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
 const styles = StyleSheet.create({
     cardContainer: {
-        backgroundColor: 'white',
+        backgroundColor: LIGHT_COLORS.BACKGROUND,
         borderRadius: 16,
         overflow: 'hidden',
         marginBottom: 20,
@@ -109,7 +115,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         left: 10,
-        backgroundColor: 'blue',
+        backgroundColor: LIGHT_COLORS.PEACH,
         paddingHorizontal: 10,
         paddingVertical: 4,
         borderRadius: 8
@@ -125,12 +131,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 16,
         fontFamily: FONTS.SEMI_BOLD,
-        color: 'black'
+        color: LIGHT_COLORS.BLACK
     },
     location: {
         fontSize: 14,
         fontFamily: FONTS.REGULAR,
-        color: '#999999',
+        color: LIGHT_COLORS.GRAY,
         marginVertical: 4
     },
     footerContainer: {
