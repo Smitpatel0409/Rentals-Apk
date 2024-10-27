@@ -3,6 +3,7 @@ export const LIGHT_COLORS = {
     SECONDARY: '#1aacac',
     BACKGROUND: '#ffffff',
     TEXT: '#292929',
+    SECONDARY_TEXT: '#cccccc',
     WHITE: '#ffffff',
     BLACK: '#000000',
     GRAY: '#999999', //'#7f8c8d',
@@ -11,7 +12,8 @@ export const LIGHT_COLORS = {
     WARNING: '#f1c40f',
     BORDER: '#cccccc',
     ERROR: '#fd7871',
-    HOVER: '#f0f0f0'
+    HOVER: '#f0f0f0',
+    PEACH: '#f5473e'
 };
 
 // Colors for dark mode
@@ -26,5 +28,6 @@ export const DARK_COLORS = {
     DANGER: '#e74c3c',
     SUCCESS: '#27ae60',
     WARNING: '#f39c12',
-    BORDER: '#333333'
+    BORDER: '#333333',
+    PEACH: '#f5473e'
 };

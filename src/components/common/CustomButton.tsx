@@ -29,7 +29,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     disabled = false,
     loading = false,
     styleContainer,
-    styleTextColor
+    styleTextColor = LIGHT_COLORS.WHITE
 }) => {
     return (
         <TouchableOpacity
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         textAlign: 'center',
-        color: 'white'
+        color: LIGHT_COLORS.WHITE
     }
 });
 

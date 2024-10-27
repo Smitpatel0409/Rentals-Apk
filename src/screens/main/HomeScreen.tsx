@@ -1,4 +1,12 @@
-import { Animated, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+    Animated,
+    FlatList,
+    Pressable,
+    StyleSheet,
+    Text,
+    useColorScheme,
+    View
+} from 'react-native';
 import React, { useState } from 'react';
 import CustomText from '../../components/common/CustomText';
 import { FONTS } from '../../constants/fonts';
@@ -6,6 +14,7 @@ import MessageIcon from 'react-native-vector-icons/Entypo';
 import BellIcon from 'react-native-vector-icons/Octicons';
 import SearchIcon from 'react-native-vector-icons/Feather';
 import MenuIcon from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp
@@ -13,11 +22,13 @@ import {
 import PropertyCard from '../../components/PropertyCard';
 import { NavigationProp } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LIGHT_COLORS } from '../../constants/colors';
 
 type HomeParamList = {
-    Notifications: undefined;
+    NotificationsScreen: undefined;
     Messages: undefined;
     Search: undefined;
+    Map: undefined;
 };
 
 interface CategoryTab {
@@ -96,7 +107,7 @@ const HomeScreen = ({ navigation }: { navigation: NavigationProp<HomeParamList> 
         </Pressable>
     );
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: LIGHT_COLORS.BACKGROUND }}>
             <View style={styles.topContainer}>
                 <View style={styles.headerContainer}>
                     <View>
@@ -135,7 +146,7 @@ const HomeScreen = ({ navigation }: { navigation: NavigationProp<HomeParamList> 
                                 borderRadius: 12
                             }}
                             onPress={() => {
-                                navigation.navigate('Notifications');
+                                navigation.navigate('NotificationsScreen');
                             }}
                         >
                             <BellIcon name='bell' size={24} color='#cccccc' />
@@ -188,6 +199,14 @@ const HomeScreen = ({ navigation }: { navigation: NavigationProp<HomeParamList> 
                 horizontal={false}
                 showsVerticalScrollIndicator={false}
             />
+            <View style={styles.mapBtnContainer}>
+                <Pressable style={styles.mapBtn} onPress={() => navigation.navigate('Map')}>
+                    <CustomText variant='body' color='white' fontFamily={FONTS.MEDIUM}>
+                        Map
+                    </CustomText>
+                    <Ionicons name='map-outline' size={18} />
+                </Pressable>
+            </View>
         </SafeAreaView>
     );
 };
@@ -197,7 +216,7 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     topContainer: {
         height: hp('16%'),
-        backgroundColor: 'white',
+        backgroundColor: LIGHT_COLORS.BACKGROUND,
         paddingBottom: 10,
         borderBottomColor: '#efefef',
         borderBottomWidth: 0.6,
@@ -222,7 +241,7 @@ const styles = StyleSheet.create({
     headerSearchContainer: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: 'white',
+        backgroundColor: LIGHT_COLORS.BACKGROUND,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -236,9 +255,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 12,
-        backgroundColor: 'white',
+        backgroundColor: LIGHT_COLORS.BACKGROUND,
         borderWidth: 0.5,
-        borderColor: '#cccccc',
+        borderColor: LIGHT_COLORS.BORDER,
         paddingLeft: 20,
         paddingRight: 10,
         borderRadius: 32,
@@ -251,7 +270,7 @@ const styles = StyleSheet.create({
     },
     menuBtn: {
         padding: 10,
-        backgroundColor: 'white',
+        backgroundColor: LIGHT_COLORS.BACKGROUND,
         borderColor: 'darkgray',
         borderWidth: 0.8,
         justifyContent: 'center',
@@ -265,18 +284,39 @@ const styles = StyleSheet.create({
     categoryButton: {
         paddingVertical: 8,
         paddingHorizontal: 16,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: LIGHT_COLORS.HOVER,
         borderRadius: 20,
         marginRight: 10
     },
     categoryButtonSelected: {
-        backgroundColor: '#292929'
+        backgroundColor: LIGHT_COLORS.PRIMARY
     },
     categoryText: {
-        color: '#999999',
+        color: LIGHT_COLORS.GRAY,
         fontWeight: '500'
     },
     categoryTextSelected: {
         color: 'white'
+    },
+    mapBtnContainer: {
+        position: 'absolute',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        bottom: 26,
+        zIndex: 3,
+        width: '100%'
+    },
+    mapBtn: {
+        flex: 1,
+        flexDirection: 'row',
+        gap: 8,
+        paddingHorizontal: 12,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: LIGHT_COLORS.PRIMARY,
+        width: wp('24%'),
+        height: hp('5%'),
+        borderRadius: 50
     }
 });

@@ -14,6 +14,7 @@ import AuthStack from './AuthStack';
 import SearchScreen from '../main/SearchScreen';
 import NotificationsScreen from '../main/NotificationsScreen';
 import PropertyDetailsScreen from '../main/PropertyDetailsScreen';
+import MapScreen from '../main/MapScreen';
 
 export type AppStackParamList = {
     TabBar: undefined;
@@ -29,6 +30,7 @@ export type AppStackParamList = {
     NotificationsScreen: undefined;
     PropertyDetails: undefined;
     Search: undefined;
+    Map: undefined;
 };
 
 const AppStack = () => {
@@ -126,6 +128,11 @@ const AppStack = () => {
                 name='PropertyDetails'
                 component={PropertyDetailsScreen}
                 options={{ animation: 'fade' }}
+            />
+            <Stack.Screen
+                name='Map'
+                component={MapScreen}
+                options={{ animation: 'slide_from_bottom' }}
             />
         </Stack.Navigator>
     );
