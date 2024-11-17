@@ -77,7 +77,9 @@ const AppStack = () => {
                 options={{
                     headerShown: true,
                     headerStyle: { backgroundColor: 'white' },
-                    headerTitleAlign: 'center'
+                    headerTitleAlign: 'center',
+                    headerShadowVisible: false,
+                    headerTitle: 'Personal Info'
                 }}
             />
             <Stack.Screen

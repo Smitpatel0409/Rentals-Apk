@@ -1,4 +1,14 @@
-import { Image, Modal, ScrollView, StyleSheet, Touchable, View } from 'react-native';
+import {
+    Image,
+    // Modal,
+    ScrollView,
+    StyleSheet,
+    Touchable,
+    View,
+    Pressable,
+    Alert,
+    Platform
+} from 'react-native';
 import React, { useState } from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Formik } from 'formik';
@@ -9,6 +19,9 @@ import CustomButton from '../../common/CustomButton';
 import { Calendar } from 'react-native-calendars';
 import { LIGHT_COLORS } from '../../../constants/colors';
 import { NavigationProp } from '@react-navigation/native';
+import Modal from 'react-native-modal';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 // Validation Schema using Yup
 const profileSchema = Yup.object().shape({
@@ -28,6 +41,178 @@ type BottomParamList = {
 const MyProfile = ({ navigation }: { navigation: NavigationProp<BottomParamList> }) => {
     const [isShowDatePicker, setIsShowDatePicker] = useState(false);
     const [selectedDate, setSelectedDate] = useState('');
+    const [avatar, setAvatar] = useState(require('../../../assets/images/avatar.jpg'));
+    const [isModalVisible, setModalVisible] = useState(false);
+
+    // Function to handle image picking from the camera
+    // const handleOpenCamera = async () => {
+    //     const permission = await request(PERMISSIONS.ANDROID.CAMERA);
+    //     if (permission === RESULTS.GRANTED) {
+    //         launchCamera({ mediaType: 'photo', quality: 1 }, (response) => {
+    //             if (response.didCancel) {
+    //                 console.log('User cancelled image picker');
+    //             } else if (response.errorMessage) {
+    //                 console.log('Image Picker Error: ', response.errorMessage);
+    //             } else {
+    //                 const source = { uri: response.assets[0].uri };
+    //                 setAvatar(source);
+    //             }
+    //         });
+    //     } else {
+    //         Alert.alert('Permission denied', 'Camera access is required to take a photo.');
+    //     }
+    // };
+
+    // Function to handle image picking from the gallery
+    // const handleOpenGallery = async () => {
+    //     const permission = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
+    //     if (permission === RESULTS.GRANTED) {
+    //         launchImageLibrary({ mediaType: 'photo', quality: 1 }, (response) => {
+    //             if (response.didCancel) {
+    //                 console.log('User cancelled image picker');
+    //             } else if (response.errorMessage) {
+    //                 console.log('Image Picker Error: ', response.errorMessage);
+    //             } else {
+    //                 const source = { uri: response.assets[0].uri };
+    //                 setAvatar(source);
+    //             }
+    //         });
+    //     } else {
+    //         Alert.alert('Permission denied', 'Gallery access is required to choose a photo.');
+    //     }
+    // };
+
+    // Function to check camera permission
+    const checkCameraPermission = async () => {
+        let permission;
+
+        if (Platform.OS === 'android') {
+            permission = PERMISSIONS.ANDROID.CAMERA;
+        } else {
+            permission = PERMISSIONS.IOS.CAMERA;
+        }
+
+        const result = await check(permission);
+
+        switch (result) {
+            case RESULTS.UNAVAILABLE:
+                Alert.alert('Camera not available on this device.');
+                break;
+            case RESULTS.DENIED:
+                return requestCameraPermission(); // Request permission if denied
+            case RESULTS.GRANTED:
+                return true; // Permission is granted
+            case RESULTS.BLOCKED:
+                Alert.alert(
+                    'Permission to access the camera has been blocked. Please enable it in settings.'
+                );
+                break;
+        }
+
+        return false;
+    };
+
+    // Request camera permission
+    const requestCameraPermission = async () => {
+        let permission;
+
+        if (Platform.OS === 'android') {
+            permission = PERMISSIONS.ANDROID.CAMERA;
+        } else {
+            permission = PERMISSIONS.IOS.CAMERA;
+        }
+
+        const result = await request(permission);
+
+        if (result === RESULTS.GRANTED) {
+            return true; // Permission granted
+        } else {
+            Alert.alert('Camera permission denied.');
+            return false;
+        }
+    };
+
+    // Function to check gallery permission (Read external storage)
+    const checkGalleryPermission = async () => {
+        let permission;
+
+        if (Platform.OS === 'android') {
+            permission = PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+        } else {
+            permission = PERMISSIONS.IOS.PHOTO_LIBRARY;
+        }
+
+        const result = await check(permission);
+
+        switch (result) {
+            case RESULTS.UNAVAILABLE:
+                Alert.alert('Gallery not available on this device.');
+                break;
+            case RESULTS.DENIED:
+                return requestGalleryPermission(); // Request permission if denied
+            case RESULTS.GRANTED:
+                return true; // Permission is granted
+            case RESULTS.BLOCKED:
+                Alert.alert(
+                    'Permission to access the gallery has been blocked. Please enable it in settings.'
+                );
+                break;
+        }
+
+        return false;
+    };
+
+    // Request gallery permission
+    const requestGalleryPermission = async () => {
+        let permission;
+
+        if (Platform.OS === 'android') {
+            permission = PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE;
+        } else {
+            permission = PERMISSIONS.IOS.PHOTO_LIBRARY;
+        }
+
+        const result = await request(permission);
+
+        if (result === RESULTS.GRANTED) {
+            return true; // Permission granted
+        } else {
+            Alert.alert('Gallery permission denied.');
+            return false;
+        }
+    };
+
+    const handleOpenCamera = async () => {
+        const cameraPermission = await checkCameraPermission();
+        if (cameraPermission) {
+            launchCamera({ mediaType: 'photo', quality: 1 }, (response) => {
+                if (response.didCancel) {
+                    console.log('User cancelled camera');
+                } else if (response.errorMessage) {
+                    console.log('Camera Error: ', response.errorMessage);
+                } else if (response.assets && response.assets.length > 0) {
+                    const source = { uri: response.assets[0].uri };
+                    setAvatar(source);
+                }
+            });
+        }
+    };
+    const handleOpenGallery = async () => {
+        const galleryPermission = await checkGalleryPermission();
+        if (galleryPermission) {
+            launchImageLibrary({ mediaType: 'photo', quality: 1 }, (response) => {
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                } else if (response.errorMessage) {
+                    console.log('Gallery Error: ', response.errorMessage);
+                } else if (response.assets && response.assets.length > 0) {
+                    const source = { uri: response.assets[0].uri };
+                    setAvatar(source);
+                }
+            });
+        }
+    };
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <Formik
@@ -55,19 +240,64 @@ const MyProfile = ({ navigation }: { navigation: NavigationProp<BottomParamList>
                 }) => (
                     <View style={styles.container}>
                         <View style={styles.avatarContainer}>
-                            <Image
-                                source={require('../../../assets/images/avatar.jpg')}
-                                style={styles.avatar}
-                            />
-                            <View style={styles.profileIconContainer}>
+                            <Image source={avatar} style={styles.avatar} />
+                            <Pressable
+                                style={styles.profileIconContainer}
+                                onPress={() => setModalVisible(true)}
+                            >
                                 <Ionicons
                                     name={'create-outline'}
                                     color={LIGHT_COLORS.WHITE}
                                     size={15}
                                     style={styles.profileIcon}
                                 />
-                            </View>
+                            </Pressable>
                         </View>
+
+                        {/* Modal for selecting camera or gallery */}
+                        <Modal
+                            isVisible={isModalVisible}
+                            onBackdropPress={() => setModalVisible(false)}
+                        >
+                            <View
+                                style={{
+                                    backgroundColor: 'white',
+                                    padding: 20,
+                                    borderRadius: 10,
+                                    alignItems: 'center',
+                                    elevation: 5,
+                                    shadowColor: '#000',
+                                    shadowOffset: {
+                                        width: 0,
+                                        height: 2
+                                    },
+                                    shadowOpacity: 0.25,
+                                    shadowRadius: 3.84
+                                }}
+                            >
+                                <CustomButton
+                                    title='Take Photo'
+                                    onPress={() => {
+                                        handleOpenCamera();
+                                        setModalVisible(false);
+                                    }}
+                                    styleTextColor={LIGHT_COLORS.WHITE}
+                                />
+                                <CustomButton
+                                    title='Choose from Gallery'
+                                    onPress={() => {
+                                        handleOpenGallery();
+                                        setModalVisible(false);
+                                    }}
+                                    styleTextColor={LIGHT_COLORS.WHITE}
+                                />
+                                <CustomButton
+                                    title='Cancel'
+                                    onPress={() => setModalVisible(false)}
+                                    styleTextColor={LIGHT_COLORS.WHITE}
+                                />
+                            </View>
+                        </Modal>
 
                         {/* Fullname Field */}
                         <View style={styles.profileDetailsContainer}>
@@ -199,9 +429,17 @@ const MyProfile = ({ navigation }: { navigation: NavigationProp<BottomParamList>
 
                         {isShowDatePicker && (
                             <Modal
-                                visible={isShowDatePicker}
-                                transparent={true}
-                                animationType='none'
+                                isVisible={isShowDatePicker}
+                                backdropOpacity={0.5}
+                                onBackdropPress={() => setIsShowDatePicker(false)}
+                                onBackButtonPress={() => setIsShowDatePicker(false)}
+                                useNativeDriver={true}
+                                onSwipeComplete={() => setIsShowDatePicker(false)}
+                                hideModalContentWhileAnimating={true}
+                                style={{
+                                    margin: 0,
+                                    width: '100%'
+                                }}
                             >
                                 <View style={styles.modalContainer}>
                                     <View style={styles.calendarContainer}>
@@ -307,7 +545,6 @@ const styles = StyleSheet.create({
     avatarContainer: {
         paddingVertical: 20,
         alignItems: 'center',
-        marginVertical: 20,
         borderColor: LIGHT_COLORS.BORDER,
         borderRadius: 20,
         position: 'relative'
@@ -375,6 +612,7 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)'
