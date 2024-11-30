@@ -71,6 +71,8 @@ const CustomText: React.FC<TextProps> = ({
                 styles.text
             ]}
             numberOfLines={numberOfLines !== undefined ? numberOfLines : undefined}
+            adjustsFontSizeToFit={true}
+            minimumFontScale={0.4}
             {...props}
         >
             {children}
