@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Pressable, StyleSheet } from 'react-native';
 import ChangePassword from '../../components/pages/profiles/ChangePassword';
 import Favorites from '../../components/pages/profiles/Favorites';
 import HelpCenter from '../../components/pages/profiles/HelpCenter';
@@ -15,6 +15,8 @@ import SearchScreen from '../main/SearchScreen';
 import NotificationsScreen from '../main/NotificationsScreen';
 import PropertyDetailsScreen from '../main/PropertyDetailsScreen';
 import MapScreen from '../main/MapScreen';
+import { FONTS } from '../../constants/fonts';
+import { LIGHT_COLORS } from '../../constants/colors';
 
 export type AppStackParamList = {
     TabBar: undefined;
@@ -129,7 +131,15 @@ const AppStack = () => {
             <Stack.Screen
                 name='PropertyDetails'
                 component={PropertyDetailsScreen}
-                options={{ animation: 'fade' }}
+                options={{
+                    headerShown: true,
+                    headerTitle: 'Property Details',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: { fontFamily: FONTS.MEDIUM },
+                    animation: 'slide_from_right',
+                    headerStyle: { backgroundColor: 'white' },
+                    headerShadowVisible: false
+                }}
             />
             <Stack.Screen
                 name='Map'

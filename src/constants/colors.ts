@@ -13,7 +13,10 @@ export const LIGHT_COLORS = {
     BORDER: '#cccccc',
     ERROR: '#fd7871',
     HOVER: '#f0f0f0',
-    PEACH: '#f5473e'
+    PEACH: '#f5473e',
+    BACKGROUND_GRAY: '#efefef',
+    PRIMARY_ICON: '#525252',
+    TEXT_GREEN: '#4CAF50'
 };
 
 // Colors for dark mode
@@ -29,5 +32,7 @@ export const DARK_COLORS = {
     SUCCESS: '#27ae60',
     WARNING: '#f39c12',
     BORDER: '#333333',
-    PEACH: '#f5473e'
+    PEACH: '#f5473e',
+    BACKGROUND_GRAY: '#efefef',
+    PRIMARY_ICON: '#525252'
 };

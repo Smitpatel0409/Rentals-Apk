@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     categoryButtonSelected: {
-        backgroundColor: LIGHT_COLORS.PRIMARY
+        backgroundColor: LIGHT_COLORS.TEXT
     },
     categoryText: {
         color: LIGHT_COLORS.GRAY,
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: LIGHT_COLORS.PRIMARY,
+        backgroundColor: LIGHT_COLORS.TEXT,
         width: wp('24%'),
         height: hp('5%'),
         borderRadius: 50
