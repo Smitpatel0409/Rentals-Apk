@@ -110,6 +110,8 @@ const OverviewTab = () => (
                     />
                 )}
                 keyExtractor={(item) => item.id.toString()}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ paddingLeft: 16 }}
             />
         </View>
         {/* Contact Section
@@ -436,11 +438,11 @@ const styles = StyleSheet.create({
     },
     propertyGalleryContainer: {
         marginVertical: 16,
-        paddingLeft: 16
+        paddingLeft: 0
     },
     sectionTitle: {
-        fontSize: RFValue(14)
-        // paddingHorizontal: 16
+        fontSize: RFValue(14),
+        paddingHorizontal: 16
     },
     map: {
         height: hp('25%'),
@@ -495,6 +497,7 @@ const styles = StyleSheet.create({
     mapViewContainer: {
         borderRadius: 12,
         overflow: 'hidden',
+        backgroundColor: LIGHT_COLORS.BACKGROUND,
         shadowColor: LIGHT_COLORS.BLACK,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
@@ -514,9 +517,9 @@ const styles = StyleSheet.create({
         backgroundColor: LIGHT_COLORS.BACKGROUND,
         borderRadius: 12,
         shadowColor: LIGHT_COLORS.GRAY,
-        shadowOffset: { width: 2, height: 6 },
-        shadowOpacity: 1,
-        shadowRadius: 12,
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.6,
+        shadowRadius: 4,
         elevation: 5
     },
     reviewTabPropertyStats: {
@@ -534,12 +537,12 @@ const styles = StyleSheet.create({
         padding: 15,
         marginVertical: 10,
         borderColor: LIGHT_COLORS.BORDER,
-        borderWidth: 0.5,
-        shadowColor: LIGHT_COLORS.GRAY,
-        shadowOffset: { width: 2, height: 6 },
-        shadowOpacity: 1,
-        shadowRadius: 12,
-        elevation: 5
+        borderWidth: 0.5
+        // shadowColor: LIGHT_COLORS.GRAY,
+        // shadowOffset: { width: 2, height: 6 },
+        // shadowOpacity: 0.8,
+        // shadowRadius: 12,
+        // elevation: 5
     },
     reviewHeader: {
         flexDirection: 'row',

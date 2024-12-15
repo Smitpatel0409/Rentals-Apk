@@ -41,7 +41,11 @@ const AppStack = () => {
     return (
         <Stack.Navigator
             initialRouteName='TabBar'
-            screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
+            screenOptions={{
+                headerShown: false,
+                animation: 'slide_from_right',
+                headerBackTitleVisible: false
+            }}
         >
             <Stack.Screen name='TabBar' component={BottomTabs} />
             <Stack.Screen

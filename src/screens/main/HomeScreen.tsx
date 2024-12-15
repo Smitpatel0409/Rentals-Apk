@@ -108,104 +108,107 @@ const HomeScreen = ({ navigation }: { navigation: NavigationProp<HomeParamList> 
     );
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: LIGHT_COLORS.BACKGROUND }}>
-            <View style={styles.topContainer}>
-                <View style={styles.headerContainer}>
-                    <View>
-                        <CustomText variant='h3' color='#cccccc' fontFamily={FONTS.REGULAR}>
-                            Hi Aditya!👋
-                        </CustomText>
-                        <CustomText variant='h4' color='black' fontFamily={FONTS.SEMI_BOLD}>
-                            Welcome to Rentals!
-                        </CustomText>
+            <View style={styles.container}>
+                <View style={styles.topContainer}>
+                    <View style={styles.headerContainer}>
+                        <View>
+                            <CustomText variant='h3' color='#cccccc' fontFamily={FONTS.REGULAR}>
+                                Hi Aditya!👋
+                            </CustomText>
+                            <CustomText variant='h4' color='black' fontFamily={FONTS.SEMI_BOLD}>
+                                Welcome to Rentals!
+                            </CustomText>
+                        </View>
+                        <View style={styles.headerBtnContainer}>
+                            <Pressable
+                                style={{
+                                    width: hp('6%'),
+                                    height: hp('6%'),
+                                    borderColor: '#cccccc',
+                                    borderWidth: 0.5,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    borderRadius: 12
+                                }}
+                                onPress={() => {
+                                    navigation.navigate('Messages');
+                                }}
+                            >
+                                <MessageIcon name='chat' size={24} color='#cccccc' />
+                            </Pressable>
+                            <Pressable
+                                style={{
+                                    width: hp('6%'),
+                                    height: hp('6%'),
+                                    borderColor: '#cccccc',
+                                    borderWidth: 0.5,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    borderRadius: 12
+                                }}
+                                onPress={() => {
+                                    navigation.navigate('NotificationsScreen');
+                                }}
+                            >
+                                <BellIcon name='bell' size={24} color='#cccccc' />
+                            </Pressable>
+                        </View>
                     </View>
-                    <View style={styles.headerBtnContainer}>
+
+                    <View style={styles.headerSearchContainer}>
                         <Pressable
-                            style={{
-                                width: hp('6%'),
-                                height: hp('6%'),
-                                borderColor: '#cccccc',
-                                borderWidth: 0.5,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                borderRadius: 12
-                            }}
+                            style={styles.searchContainer}
                             onPress={() => {
-                                navigation.navigate('Messages');
+                                navigation.navigate('Search');
                             }}
                         >
-                            <MessageIcon name='chat' size={24} color='#cccccc' />
+                            <SearchIcon name='search' size={24} color='black' />
+                            <CustomText variant='h5' fontFamily={FONTS.MEDIUM} color='#cccccc'>
+                                Search...
+                            </CustomText>
                         </Pressable>
-                        <Pressable
-                            style={{
-                                width: hp('6%'),
-                                height: hp('6%'),
-                                borderColor: '#cccccc',
-                                borderWidth: 0.5,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                borderRadius: 12
-                            }}
-                            onPress={() => {
-                                navigation.navigate('NotificationsScreen');
-                            }}
-                        >
-                            <BellIcon name='bell' size={24} color='#cccccc' />
+                        <Pressable style={styles.menuBtn}>
+                            <MenuIcon name='menu-fold' size={24} color='black' />
                         </Pressable>
                     </View>
                 </View>
-
-                <View style={styles.headerSearchContainer}>
-                    <Pressable
-                        style={styles.searchContainer}
-                        onPress={() => {
-                            navigation.navigate('Search');
-                        }}
-                    >
-                        <SearchIcon name='search' size={24} color='black' />
-                        <CustomText variant='h5' fontFamily={FONTS.MEDIUM} color='#cccccc'>
-                            Search...
-                        </CustomText>
-                    </Pressable>
-                    <Pressable style={styles.menuBtn}>
-                        <MenuIcon name='menu-fold' size={24} color='black' />
-                    </Pressable>
-                </View>
-            </View>
-            <Animated.View style={{ width: '100%' }}>
-                <FlatList
-                    data={categories}
-                    renderItem={categoryTab}
-                    keyExtractor={(item) => item.id}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.listContainer}
-                />
-            </Animated.View>
-
-            <FlatList
-                style={{ backgroundColor: 'white' }}
-                data={properties}
-                renderItem={({ item }) => (
-                    <PropertyCard
-                        title={item.title}
-                        location={item.location}
-                        price={item.price}
-                        rating={item.rating}
-                        image={item.image}
-                        label={item.label}
+                <Animated.View style={{ width: '100%' }}>
+                    <FlatList
+                        data={categories}
+                        renderItem={categoryTab}
+                        keyExtractor={(item) => item.id}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.listContainer}
                     />
-                )}
-                keyExtractor={(item) => item.id}
-                horizontal={false}
-                showsVerticalScrollIndicator={false}
-            />
-            <View style={styles.mapBtnContainer}>
-                <Pressable style={styles.mapBtn} onPress={() => navigation.navigate('Map')}>
-                    <CustomText variant='body' color='white' fontFamily={FONTS.MEDIUM}>
-                        Map
-                    </CustomText>
-                    <Ionicons name='map-outline' size={18} />
-                </Pressable>
+                </Animated.View>
+
+                <FlatList
+                    style={{ backgroundColor: LIGHT_COLORS.BACKGROUND }}
+                    data={properties}
+                    renderItem={({ item }) => (
+                        <PropertyCard
+                            title={item.title}
+                            location={item.location}
+                            price={item.price}
+                            rating={item.rating}
+                            image={item.image}
+                            label={item.label}
+                        />
+                    )}
+                    keyExtractor={(item) => item.id}
+                    horizontal={false}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ paddingBottom: hp('18%') }}
+                />
+                <View style={styles.mapBtnContainer}>
+                    <Pressable style={styles.mapBtn} onPress={() => navigation.navigate('Map')}>
+                        <CustomText variant='body' color='white' fontFamily={FONTS.MEDIUM}>
+                            Map
+                        </CustomText>
+                        <Ionicons name='map-outline' color='white' size={18} />
+                    </Pressable>
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -214,14 +217,17 @@ const HomeScreen = ({ navigation }: { navigation: NavigationProp<HomeParamList> 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+    container: {
+        position: 'relative',
+        backgroundColor: 'transparent'
+    },
     topContainer: {
         height: hp('16%'),
         backgroundColor: LIGHT_COLORS.BACKGROUND,
         paddingBottom: 10,
         borderBottomColor: '#efefef',
         borderBottomWidth: 0.6,
-        zIndex: 2,
-        position: 'relative'
+        zIndex: 2
     },
     headerContainer: {
         flex: 1,
@@ -303,7 +309,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        bottom: 26,
+        bottom: 188,
         zIndex: 3,
         width: '100%'
     },

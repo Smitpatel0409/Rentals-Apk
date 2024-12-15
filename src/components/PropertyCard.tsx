@@ -90,12 +90,11 @@ const styles = StyleSheet.create({
     cardContainer: {
         backgroundColor: LIGHT_COLORS.BACKGROUND,
         borderRadius: 16,
-        overflow: 'hidden',
         marginBottom: 20,
         shadowColor: 'gray',
-        shadowOffset: { width: 1, height: 2 },
+        shadowOffset: { width: 0, height: 6 },
         shadowOpacity: 0.8,
-        shadowRadius: 6,
+        shadowRadius: 7,
         elevation: 5,
         width: wp('90%'),
         height: hp('58%'),
@@ -104,7 +103,9 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: '100%',
         height: hp('42%'),
-        position: 'relative'
+        position: 'relative',
+        borderRadius: 16,
+        overflow: 'hidden'
     },
     image: {
         width: '100%',
