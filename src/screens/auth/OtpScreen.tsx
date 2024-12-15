@@ -1,4 +1,4 @@
-import { PermissionsAndroid, Pressable, StyleSheet, Text, View } from 'react-native';
+import { PermissionsAndroid, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomText from '../../components/common/CustomText';
@@ -61,7 +61,9 @@ const OtpScreen = ({ navigation }: { navigation: NavigationProp<AuthStackParamLi
     };
 
     useEffect(() => {
-        requestSmsPermission();
+        if (Platform.OS === 'android') {
+            requestSmsPermission();
+        }
     }, []);
 
     useEffect(() => {

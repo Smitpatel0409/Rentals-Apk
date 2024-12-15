@@ -212,9 +212,9 @@ const styles = StyleSheet.create({
     socialsBtn: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: hp('5.5%'),
-        width: hp('5.5%'),
-        borderRadius: 50,
+        height: hp('5%'),
+        width: hp('5%'),
+        borderRadius: 24,
         borderColor: LIGHT_COLORS.GRAY,
         borderWidth: 0.5,
         overflow: 'hidden'

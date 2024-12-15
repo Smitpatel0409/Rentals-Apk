@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 import { Pressable, TextInput } from 'react-native-gesture-handler';
 import { FONTS } from '../../constants/fonts';
@@ -17,6 +17,8 @@ interface TextFieldProps {
     isPassword?: boolean;
     onPress?: () => void;
 }
+
+const isIos = Platform.OS === 'ios';
 
 const CustomTextField: React.FC<TextFieldProps & React.ComponentProps<TextInput>> = ({
     leftIcon,
@@ -114,14 +116,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 4,
         shadowColor: '#999999',
-        marginBottom: 5
+        marginBottom: 5,
+        backgroundColor: LIGHT_COLORS.BACKGROUND
     },
     inputContainer: {
-        height: '100%',
+        height: '80%',
         width: '76%',
         fontFamily: FONTS.SEMI_BOLD,
         fontSize: RFValue(12),
-        paddingBottom: 6,
+        paddingBottom: !isIos ? 6 : 1,
         color: LIGHT_COLORS.TEXT
     },
     inputWithRightIcon: {
